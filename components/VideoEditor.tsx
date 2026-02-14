@@ -361,7 +361,7 @@ const VideoEditor: React.FC<VideoEditorProps> = ({ file, config, onConfigChange,
     }
     
     // OPTIMIZED RENDER LOOP
-    const renderLoop = (now: number, metadata: VideoFrameCallbackMetadata) => {
+    const renderLoop = (_now: number, metadata: VideoFrameCallbackMetadata) => {
         if (processingStateRef.current !== ProcessingState.RECORDING) return;
 
         drawFrame();
@@ -383,7 +383,8 @@ const VideoEditor: React.FC<VideoEditorProps> = ({ file, config, onConfigChange,
             video.requestVideoFrameCallback(renderLoop);
         } else {
             // Fallback for browsers without rVFC
-            requestAnimationFrame(() => renderLoop(performance.now(), { mediaTime: video.currentTime } as any));
+            const currentTime = (video as HTMLVideoElement).currentTime;
+            requestAnimationFrame(() => renderLoop(performance.now(), { mediaTime: currentTime } as any));
         }
     };
     

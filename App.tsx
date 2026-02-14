@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Upload, Video, Ratio, Palette, Sparkles, Image as ImageIcon, Info, Settings2, Maximize2, AlertCircle, Globe } from 'lucide-react';
+import { Upload, Video, Ratio, Settings2, Maximize2, AlertCircle, Globe } from 'lucide-react';
 import VideoEditor from './components/VideoEditor';
 import { AspectRatio, ScaleMode, VideoConfig } from './types';
 import { translations } from './translations';
