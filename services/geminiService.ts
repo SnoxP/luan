@@ -1,13 +1,11 @@
 import { GoogleGenAI } from "@google/genai";
 
-const apiKey = process.env.API_KEY || '';
-
 export const generateBackgroundImage = async (prompt: string): Promise<string> => {
-  if (!apiKey) {
+  if (!process.env.API_KEY) {
     throw new Error("API Key not found in environment variables");
   }
 
-  const ai = new GoogleGenAI({ apiKey });
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
   
   try {
     const response = await ai.models.generateContent({
