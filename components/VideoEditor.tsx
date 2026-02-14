@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { Dimensions, ProcessingState, RESOLUTIONS, VideoConfig, AspectRatio, ScaleMode } from '../types';
 import { generateBackgroundImage } from '../services/geminiService';
-import { Download, Loader2, Play, RefreshCw, Wand2, Ratio, Settings2, Maximize2, Pause, Volume2, VolumeX, SkipBack, Link as LinkIcon, Maximize } from 'lucide-react';
+import { Download, Loader2, Play, RefreshCw, Wand2, Ratio, Settings2, Maximize2, Pause, Volume2, VolumeX, SkipBack, Link as LinkIcon, Maximize, Palette, Sparkles } from 'lucide-react';
 
 interface VideoEditorProps {
   file: File;
@@ -612,6 +612,65 @@ const VideoEditor: React.FC<VideoEditorProps> = ({ file, config, onConfigChange,
                             ))}
                         </div>
                     </div>
+
+                    {/* Background Settings - Only visible if ScaleMode is CONTAIN */}
+                    {config.scaleMode === ScaleMode.CONTAIN && (
+                        <div className="border-t border-gray-700 pt-4 mt-4 animate-in fade-in slide-in-from-top-2">
+                            <label className="text-xs text-gray-400 mb-2 block flex items-center gap-2">
+                                <Palette className="w-3 h-3" /> {t.background}
+                            </label>
+                            
+                            <div className="flex bg-gray-900 rounded-lg p-1 mb-3">
+                                 <button 
+                                     onClick={() => onConfigChange({...config, useAIBackground: false})}
+                                     disabled={isProcessing}
+                                     className={`flex-1 flex items-center justify-center gap-2 py-1.5 rounded-md text-xs transition-all ${!config.useAIBackground ? 'bg-gray-700 text-white shadow-sm' : 'text-gray-400 hover:text-gray-300'}`}
+                                 >
+                                     <div className="w-3 h-3 rounded-full bg-current"></div>
+                                     {t.color}
+                                 </button>
+                                 <button 
+                                     onClick={() => onConfigChange({...config, useAIBackground: true})}
+                                     disabled={isProcessing}
+                                     className={`flex-1 flex items-center justify-center gap-2 py-1.5 rounded-md text-xs transition-all ${config.useAIBackground ? 'bg-indigo-600 text-white shadow-sm' : 'text-gray-400 hover:text-gray-300'}`}
+                                 >
+                                     <Sparkles className="w-3 h-3" />
+                                     {t.aiBackground}
+                                 </button>
+                            </div>
+
+                            {!config.useAIBackground ? (
+                                <div className="flex items-center gap-3 bg-gray-700/50 p-2 rounded-lg border border-gray-600">
+                                    <input 
+                                        type="color" 
+                                        value={config.backgroundColor}
+                                        disabled={isProcessing}
+                                        onChange={(e) => onConfigChange({...config, backgroundColor: e.target.value})}
+                                        className="w-8 h-8 rounded cursor-pointer bg-transparent border-0 p-0"
+                                    />
+                                    <span className="text-xs text-gray-300 font-mono uppercase">{config.backgroundColor}</span>
+                                </div>
+                            ) : (
+                                <div className="space-y-2">
+                                    <textarea 
+                                        value={config.aiPrompt}
+                                        onChange={(e) => onConfigChange({...config, aiPrompt: e.target.value})}
+                                        placeholder={t.promptPlaceholder}
+                                        disabled={isProcessing}
+                                        className="w-full bg-gray-900 border border-gray-600 rounded-lg p-2 text-xs text-white focus:border-indigo-500 focus:outline-none resize-none h-16"
+                                    />
+                                    <button
+                                        onClick={generateAIBackground}
+                                        disabled={isProcessing || !config.aiPrompt}
+                                        className="w-full py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-xs font-medium transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+                                    >
+                                        <Sparkles className="w-3 h-3" />
+                                        {t.generate}
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+                    )}
 
                     <div className="flex justify-between text-xs text-gray-500 border-t border-gray-700 pt-3">
                          <span>{t.output}:</span>

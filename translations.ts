@@ -28,6 +28,11 @@ export const translations = {
     generateAnother: "Generate Another",
     renderingVideo: "Rendering Video...",
     waitMoment: "This may take a moment. Please wait.",
+    background: "Background",
+    color: "Color",
+    aiBackground: "AI Texture",
+    promptPlaceholder: "Describe the background texture...",
+    generate: "Generate Background",
     ratios: {
       '1:1': '1:1',
       '9:16': '9:16',
@@ -71,6 +76,11 @@ export const translations = {
     generateAnother: "Gerar Outro",
     renderingVideo: "Renderizando...",
     waitMoment: "Aguarde um momento.",
+    background: "Fundo",
+    color: "Cor",
+    aiBackground: "Textura IA",
+    promptPlaceholder: "Descreva a textura do fundo...",
+    generate: "Gerar Fundo",
     ratios: {
       '1:1': '1:1',
       '9:16': '9:16',
