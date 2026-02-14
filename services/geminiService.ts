@@ -19,7 +19,6 @@ export const generateBackgroundImage = async (prompt: string): Promise<string> =
         // Image generation specific config
         imageConfig: {
             aspectRatio: "1:1", // Generating a square texture is usually versatile enough to crop/tile
-            imageSize: "1K"
         }
       }
     });
