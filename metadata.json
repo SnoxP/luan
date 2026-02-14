@@ -1,0 +1,5 @@
+{
+  "name": "VideoResizer Pro",
+  "description": "A client-side video resizing tool that adapts videos to any aspect ratio without cropping. Features AI-generated backgrounds to fill empty spaces.",
+  "requestFramePermissions": []
+}
